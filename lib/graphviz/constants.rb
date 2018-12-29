@@ -41,7 +41,7 @@
 #
 class GraphViz
   module Constants
-    RGV_VERSION = "1.2.3"
+    RGV_VERSION = "1.2.4"
 
     ## Const: Output formats
     FORMATS = [
@@ -131,6 +131,7 @@ class GraphViz
       "bgcolor"             => { :usedBy => "GC",   :type => :Color }, # color
       "center"              => { :usedBy => "G",    :type => :GvBool },    # bool
       "charset"             => { :usedBy => "G",    :type => :EscString }, # string
+      "class"               => { :usedBy => "ENCG", :type => :EscString }, # string
       "clusterrank"         => { :usedBy => "G",    :type => :EscString }, # clusterMode
       "color"               => { :usedBy => "ENC",  :type => :ColorList }, # color, colorList
       "colorscheme"         => { :usedBy => "ENCG", :type => :EscString }, # string
