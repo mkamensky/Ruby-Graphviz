@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright (C) 2003 - 2012 Gregoire Lejeune <gregoire.lejeune@free.fr>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -31,10 +32,6 @@ require 'graphviz/dot_script'
 require 'graphviz/dot2ruby'
 require 'graphviz/types'
 require 'graphviz/core_ext'
-
-if /^1.8/.match RUBY_VERSION
-  $KCODE = "UTF8"
-end
 
 class GraphViz
   include GraphViz::Constants
@@ -154,6 +151,15 @@ class GraphViz
         return n unless n.nil?
      }
      return nil
+  end
+
+  def enumerate_nodes
+    nodes = @hoNodes.keys
+    each_graph { |_, g|
+      child_nodes = g.enumerate_nodes
+      nodes += child_nodes
+    }
+    return nodes
   end
 
   #
