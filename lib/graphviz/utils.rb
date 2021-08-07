@@ -34,7 +34,7 @@ class GraphViz
       return nil
     end
 
-    def output_and_errors_from_command(cmd) #:nodoc:
+    def output_and_errors_from_command(cmd, binmode: true) #:nodoc:
       unless defined? Open3
         begin
           require 'open3'
@@ -43,8 +43,7 @@ class GraphViz
         end
       end
       begin
-        # https://github.com/glejeune/Ruby-Graphviz/issues/115
-        out, err, status = Open3.capture3(*cmd, :binmode => false)
+        out, err, status = Open3.capture3(*cmd, :binmode => binmode)
         [out, err, status.exitstatus]
       rescue NotImplementedError, NoMethodError
         IO.popen( *cmd ) do |stdout|
@@ -54,8 +53,8 @@ class GraphViz
       end
     end
 
-    def output_from_command(cmd) #:nodoc:
-      output, errors, status = output_and_errors_from_command(cmd)
+    def output_from_command(cmd, binmode: true) #:nodoc:
+      output, errors, status = output_and_errors_from_command(cmd, binmode: binmode)
       if (status.nil? && (errors.nil? || errors.strip.empty?)) || status.zero?
         output
       else
@@ -65,4 +64,3 @@ class GraphViz
 
   end
 end
-
